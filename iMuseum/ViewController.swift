@@ -49,7 +49,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         
         do {
             let jsonResult = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as! NSArray
-                [String:Any]()
+             //   [String:Any]()
            // print("JSON: \(jsonResult)")
             let firstRow = jsonResult[0]
             print("first row: \(firstRow)")
