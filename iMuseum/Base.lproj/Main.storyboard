@@ -1,14 +1,19 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11134" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="15G1217" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11106"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="iMuseum" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
@@ -16,11 +21,102 @@
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="102" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="GZp-Fj-F71" userLabel="Museum Table View">
+                                <rect key="frame" x="0.0" y="52" width="375" height="615"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="MuseumCell" rowHeight="102" id="6wJ-Rg-J8U" userLabel="MuseumCell" customClass="MuseumTableViewCell" customModule="iMuseum" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="375" height="102"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="6wJ-Rg-J8U" id="gHj-kR-IOh">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="101"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="69E-K7-3cA" userLabel="museumNameLabel">
+                                                    <rect key="frame" x="8" y="0.0" width="359" height="14.5"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Okp-iV-bYt" userLabel="streetLabel">
+                                                    <rect key="frame" x="8" y="16.5" width="359" height="14.5"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="czu-te-3gd" userLabel="stateLabel">
+                                                    <rect key="frame" x="8" y="61.5" width="359" height="14.5"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QcE-xI-XYo" userLabel="cityLabel">
+                                                    <rect key="frame" x="8" y="39" width="359" height="14.5"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="Okp-iV-bYt" firstAttribute="trailing" secondItem="gHj-kR-IOh" secondAttribute="trailingMargin" id="COL-ag-Fyu"/>
+                                                <constraint firstItem="69E-K7-3cA" firstAttribute="leading" secondItem="gHj-kR-IOh" secondAttribute="leading" constant="8" id="DE6-nq-itt"/>
+                                                <constraint firstItem="69E-K7-3cA" firstAttribute="top" secondItem="gHj-kR-IOh" secondAttribute="top" id="Mdi-IP-VMk"/>
+                                                <constraint firstItem="QcE-xI-XYo" firstAttribute="top" secondItem="Okp-iV-bYt" secondAttribute="bottom" constant="8" id="UFQ-t3-Kco"/>
+                                                <constraint firstItem="Okp-iV-bYt" firstAttribute="top" secondItem="69E-K7-3cA" secondAttribute="bottom" constant="2" id="Z1u-Ri-qcE"/>
+                                                <constraint firstItem="QcE-xI-XYo" firstAttribute="trailing" secondItem="gHj-kR-IOh" secondAttribute="trailingMargin" id="Z6J-bE-b4b"/>
+                                                <constraint firstItem="czu-te-3gd" firstAttribute="top" secondItem="QcE-xI-XYo" secondAttribute="bottom" constant="8" id="ccA-iW-lNZ"/>
+                                                <constraint firstAttribute="trailing" secondItem="69E-K7-3cA" secondAttribute="trailing" constant="8" id="dMY-Q1-cuH"/>
+                                                <constraint firstItem="QcE-xI-XYo" firstAttribute="leading" secondItem="gHj-kR-IOh" secondAttribute="leadingMargin" id="fWH-aM-r6g"/>
+                                                <constraint firstItem="czu-te-3gd" firstAttribute="leading" secondItem="gHj-kR-IOh" secondAttribute="leadingMargin" id="k3p-hL-x9H"/>
+                                                <constraint firstItem="Okp-iV-bYt" firstAttribute="leading" secondItem="gHj-kR-IOh" secondAttribute="leadingMargin" id="n1h-ty-fJe"/>
+                                                <constraint firstItem="czu-te-3gd" firstAttribute="trailing" secondItem="gHj-kR-IOh" secondAttribute="trailingMargin" id="yoN-f2-S2N"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="cityLabel" destination="QcE-xI-XYo" id="Aqe-fl-qEg"/>
+                                            <outlet property="museumNameLabel" destination="69E-K7-3cA" id="3DS-AH-zhN"/>
+                                            <outlet property="stateLabel" destination="czu-te-3gd" id="Jll-hk-72K"/>
+                                            <outlet property="streetLabel" destination="Okp-iV-bYt" id="eYj-0x-twE"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="BYZ-38-t0r" id="gyS-sH-wPb"/>
+                                    <outlet property="delegate" destination="BYZ-38-t0r" id="lqu-MF-FQE"/>
+                                </connections>
+                            </tableView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Yrs-lO-KFE" userLabel="Network Status Label">
+                                <rect key="frame" x="0.0" y="20" width="33" height="16"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="08l-8E-7JI">
+                                <rect key="frame" x="302" y="20" width="57" height="30"/>
+                                <state key="normal" title="GetData"/>
+                                <connections>
+                                    <action selector="getFilePressedWithButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="bUW-hI-Uhl"/>
+                                </connections>
+                            </button>
+                        </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="08l-8E-7JI" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="8BU-92-1kw"/>
+                            <constraint firstItem="08l-8E-7JI" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="A6Y-5n-tVQ"/>
+                            <constraint firstItem="Yrs-lO-KFE" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="AFT-ti-uN2"/>
+                            <constraint firstItem="Yrs-lO-KFE" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="cSO-MI-WCA"/>
+                        </constraints>
                     </view>
+                    <connections>
+                        <outlet property="museumTableView" destination="GZp-Fj-F71" id="i9n-2C-seC"/>
+                        <outlet property="networkStatusLabel" destination="Yrs-lO-KFE" id="JO7-OJ-EOp"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="117.59999999999999" y="123.68815592203899"/>
         </scene>
     </scenes>
 </document>

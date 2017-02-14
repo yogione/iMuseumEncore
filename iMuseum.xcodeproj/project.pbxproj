@@ -12,6 +12,9 @@
 		16E4DF501E52877900C609D2 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 16E4DF4E1E52877900C609D2 /* Main.storyboard */; };
 		16E4DF521E52877900C609D2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 16E4DF511E52877900C609D2 /* Assets.xcassets */; };
 		16E4DF551E52877900C609D2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 16E4DF531E52877900C609D2 /* LaunchScreen.storyboard */; };
+		16E4DF5D1E52895000C609D2 /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16E4DF5C1E52895000C609D2 /* Reachability.swift */; };
+		16E4DF5F1E52924600C609D2 /* MuseumItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16E4DF5E1E52924600C609D2 /* MuseumItem.swift */; };
+		16E4DF611E529A2D00C609D2 /* MuseumTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16E4DF601E529A2D00C609D2 /* MuseumTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +25,9 @@
 		16E4DF511E52877900C609D2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		16E4DF541E52877900C609D2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		16E4DF561E52877900C609D2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		16E4DF5C1E52895000C609D2 /* Reachability.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reachability.swift; sourceTree = "<group>"; };
+		16E4DF5E1E52924600C609D2 /* MuseumItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MuseumItem.swift; sourceTree = "<group>"; };
+		16E4DF601E529A2D00C609D2 /* MuseumTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MuseumTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -55,7 +61,10 @@
 			isa = PBXGroup;
 			children = (
 				16E4DF4A1E52877900C609D2 /* AppDelegate.swift */,
+				16E4DF5C1E52895000C609D2 /* Reachability.swift */,
 				16E4DF4C1E52877900C609D2 /* ViewController.swift */,
+				16E4DF601E529A2D00C609D2 /* MuseumTableViewCell.swift */,
+				16E4DF5E1E52924600C609D2 /* MuseumItem.swift */,
 				16E4DF4E1E52877900C609D2 /* Main.storyboard */,
 				16E4DF511E52877900C609D2 /* Assets.xcassets */,
 				16E4DF531E52877900C609D2 /* LaunchScreen.storyboard */,
@@ -138,6 +147,9 @@
 			files = (
 				16E4DF4D1E52877900C609D2 /* ViewController.swift in Sources */,
 				16E4DF4B1E52877900C609D2 /* AppDelegate.swift in Sources */,
+				16E4DF611E529A2D00C609D2 /* MuseumTableViewCell.swift in Sources */,
+				16E4DF5F1E52924600C609D2 /* MuseumItem.swift in Sources */,
+				16E4DF5D1E52895000C609D2 /* Reachability.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
