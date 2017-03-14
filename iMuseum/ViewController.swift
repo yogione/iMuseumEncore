@@ -42,32 +42,8 @@ class ViewController: UIViewController  /*, UITableViewDelegate, UITableViewData
     var reachability :Reachability?
     
     @IBOutlet var networkStatusLabel    :UILabel!
-   // @IBOutlet var searchField           :UITextField!
-   // @IBOutlet var museumTableView        :UITableView!
     
     //MARK :- CORE METHODS
-    // not using the following func left it for ref
-    func parseJason(data: Data){
-        
-        do {
-            let jsonResult = try JSONSerialization.jsonObject(with: data, options: .mutableContainers) as! [String:Any]
-          //  print("JSON: \(jsonResult)")
-            let flavorsArray = jsonResult["flavors"] as! [[String:Any]]
-            for flavorDict in flavorsArray {
-                print("Flavor:\(flavorDict)")
-            }
-            for flavorDict in flavorsArray {
-                print("Flavor:\(flavorDict["name"])")
-            }
-            
-        } catch {
-            print("JSON Parsing Error")
-        }
-        DispatchQueue.main.async {
-            UIApplication.shared.isNetworkActivityIndicatorVisible = false
-        }
-        
-    }
     
     func parseItunesJason(data: Data){
         
@@ -101,8 +77,10 @@ class ViewController: UIViewController  /*, UITableViewDelegate, UITableViewData
             museumArray.append(MuseumItem(museumName: museumName2, street: street2, city: city2,  state: state2, lat: lat1, lon: lon1))
             
            }
-     
-            print("Museum Array: \(museumArray[0])")
+            //for mItem in museumArray {
+           // print("Museum Array: \(mItem.locationLat!)")
+            //}
+            print(museumArray.count)
         }
        catch {
             print("JSON Parsing Error")
@@ -146,10 +124,10 @@ class ViewController: UIViewController  /*, UITableViewDelegate, UITableViewData
     }
     
     //MARK: - setup METHODS -- just for testing
-    func fillArray() -> [MuseumItem]{
+    func fillArray() {
         let museum3 = MuseumItem(museumName: "Bill Museum", street: "123 oak", city: "ypsi", state: "FL", lat: 83.1254, lon: -42.123)
         let museum2 = MuseumItem(museumName: "Joe Museum", street: "123 maple", city: "canton", state: "FL", lat: 83.1254, lon: -42.123)
-        return [museum3, museum2]
+        museumArray.append(contentsOf: [museum3, museum2])
     }
     
     
@@ -182,11 +160,15 @@ class ViewController: UIViewController  /*, UITableViewDelegate, UITableViewData
         }
         coffeeMap.removeAnnotations(pinsToRemove)
         
+        for mItem in museumArray {
+            print("Museum Array: \(mItem.locationLat!)")
+        }
+        
         print("in annotate pins func \(museumArray.count)")
         
         for museumLoc in museumArray {
             let pa1 = MKPointAnnotation()
-            pa1.coordinate = CLLocationCoordinate2D(latitude: museumLoc.locationLat, longitude: museumLoc.locationLon)
+            pa1.coordinate = CLLocationCoordinate2D(latitude: museumLoc.locationLat!, longitude: museumLoc.locationLon!)
             pa1.title = museumLoc.museumName
             pa1.subtitle = museumLoc.city
             
@@ -197,7 +179,7 @@ class ViewController: UIViewController  /*, UITableViewDelegate, UITableViewData
     }
     
     //MARK :- Table View Methods
-  
+   
     
     //MARK :- REACHABILITY METHODS
     
@@ -243,6 +225,7 @@ class ViewController: UIViewController  /*, UITableViewDelegate, UITableViewData
         super.viewDidLoad()
         setupReachability(hostName: hostName)
         startReachability()
+      //  fillArray()
         getFilePressed()
         annotateMapLocations()
         
