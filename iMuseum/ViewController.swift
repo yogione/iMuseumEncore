@@ -7,10 +7,34 @@
 //
 
 import UIKit
+import MapKit
 
-class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class ViewController: UIViewController  /*, UITableViewDelegate, UITableViewDataSource */ {
     
     var museumArray = [MuseumItem]()
+    
+    @IBOutlet var coffeeMap :MKMapView!
+    
+    var locationMgr = CLLocationManager()
+    
+    func zoomToPins(){
+        coffeeMap.showAnnotations(coffeeMap.annotations, animated: true)
+    }
+    
+    func zoomToLocation(lat: Double, lon: Double, radius: Double){
+        if lat == 0 && lon == 0 {
+            print("invalid data")
+            
+        } else {
+            let coord = CLLocationCoordinate2D(latitude: lat, longitude: lon)
+            let viewRegion = MKCoordinateRegionMakeWithDistance(coord, radius, radius)
+            let adjustedRegion = coffeeMap.regionThatFits(viewRegion)
+            coffeeMap.setRegion(adjustedRegion, animated: true)
+            
+        }
+        coffeeMap.showAnnotations(coffeeMap.annotations, animated: true)
+    }
+    
     
     //MARK :- LIFE CYCLE METHODS
     
@@ -18,16 +42,16 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     var reachability :Reachability?
     
     @IBOutlet var networkStatusLabel    :UILabel!
-    @IBOutlet var searchField           :UITextField!
-    @IBOutlet var museumTableView        :UITableView!
+   // @IBOutlet var searchField           :UITextField!
+   // @IBOutlet var museumTableView        :UITableView!
     
     //MARK :- CORE METHODS
-    // not using the following func
+    // not using the following func left it for ref
     func parseJason(data: Data){
         
         do {
             let jsonResult = try JSONSerialization.jsonObject(with: data, options: .mutableContainers) as! [String:Any]
-            print("JSON: \(jsonResult)")
+          //  print("JSON: \(jsonResult)")
             let flavorsArray = jsonResult["flavors"] as! [[String:Any]]
             for flavorDict in flavorsArray {
                 print("Flavor:\(flavorDict)")
@@ -62,18 +86,29 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             let street2 = museumDict["location_1_address"] as? String ?? "no street data"
             let city2 = museumDict["location_1_city"] as? String ?? "no city data"
             let state2 = museumDict["location_1_state"] as? String ?? "no state data"
+           
+            let coordDict = museumDict["location_1"] as? NSDictionary ?? nil
+              //  print("museum1:\(coordDict)")
+            let coordArray = coordDict?["coordinates"] as? NSArray ?? nil
+              //  print("coord: \(coordArray?[0])")
+            let lat1 = coordArray?[0] as? Double  ?? 0.0
+            let lon1 = coordArray?[1] as? Double  ?? 0.0
+             //   print("lat: \(lat1), long: \(lon1)")
 
-            museumArray.append(MuseumItem(museumName: museumName2, street: street2, city: city2,  state: state2))
+                
+                //  let lon = museumDict["coordinates[1]"] as? Double ?? "no state data"
+
+            museumArray.append(MuseumItem(museumName: museumName2, street: street2, city: city2,  state: state2, lat: lat1, lon: lon1))
             
            }
      
-          //  print("Museum Array: \(museumArray)")
+            print("Museum Array: \(museumArray[0])")
         }
        catch {
             print("JSON Parsing Error")
         }
         DispatchQueue.main.async {
-            self.museumTableView.reloadData()
+           // self.museumTableView.reloadData()
             UIApplication.shared.isNetworkActivityIndicatorVisible = false
         }
         
@@ -112,13 +147,14 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     //MARK: - setup METHODS -- just for testing
     func fillArray() -> [MuseumItem]{
-        let museum3 = MuseumItem(museumName: "Bill Museum", street: "123 oak", city: "ypsi", state: "FL")
-        let museum2 = MuseumItem(museumName: "Joe Museum", street: "123 maple", city: "canton", state: "FL")
+        let museum3 = MuseumItem(museumName: "Bill Museum", street: "123 oak", city: "ypsi", state: "FL", lat: 83.1254, lon: -42.123)
+        let museum2 = MuseumItem(museumName: "Joe Museum", street: "123 maple", city: "canton", state: "FL", lat: 83.1254, lon: -42.123)
         return [museum3, museum2]
     }
     
     
-    @IBAction func getFilePressed(button: UIButton){
+   // @IBAction func getFilePressed(button: UIButton){
+    func getFilePressed() {
         guard let reach = reachability else {
             return
         }
@@ -135,33 +171,33 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         
     }
     
+    func annotateMapLocations(){
+        
+        var pinsToRemove = [MKPointAnnotation]()
+        for annotation in coffeeMap.annotations{
+            if annotation is MKPointAnnotation {
+                pinsToRemove.append(annotation as! MKPointAnnotation)
+            }
+            
+        }
+        coffeeMap.removeAnnotations(pinsToRemove)
+        
+        print("in annotate pins func \(museumArray.count)")
+        
+        for museumLoc in museumArray {
+            let pa1 = MKPointAnnotation()
+            pa1.coordinate = CLLocationCoordinate2D(latitude: museumLoc.locationLat, longitude: museumLoc.locationLon)
+            pa1.title = museumLoc.museumName
+            pa1.subtitle = museumLoc.city
+            
+            print("in annotate pins \(museumLoc.locationLat)")
+            coffeeMap.addAnnotations([pa1])
+        }
+        // zoomToPins()
+    }
+    
     //MARK :- Table View Methods
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return museumArray.count
-        
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
-        let cell = tableView.dequeueReusableCell(withIdentifier: "MuseumCell", for: indexPath) as! MuseumTableViewCell
-        let currentMuseumItem = museumArray[indexPath.row]
-        cell.museumNameLabel.text = currentMuseumItem.museumName
-        cell.streetLabel.text = currentMuseumItem.street
-        cell.cityLabel.text = currentMuseumItem.city
-        cell.stateLabel.text = currentMuseumItem.state
-        
-        return cell
-    }
-    
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 80.0
-    }
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let currentMuseumItem = museumArray[indexPath.row]
-        print("Row: \(indexPath.row) \(currentMuseumItem.museumName)")
-    }
-    
+  
     
     //MARK :- REACHABILITY METHODS
     
@@ -207,16 +243,58 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         super.viewDidLoad()
         setupReachability(hostName: hostName)
         startReachability()
-        // albumArray = fillArray()
+        getFilePressed()
+        annotateMapLocations()
+        
+       setupLocationMonitoring()
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         
     }
-    
-    
 }
+extension ViewController: CLLocationManagerDelegate {
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        let lastLoc = locations.last!
+        print("Last loc: \(lastLoc.coordinate.latitude), \(lastLoc.coordinate.longitude)")
+        zoomToLocation(lat: lastLoc.coordinate.latitude, lon: lastLoc.coordinate.longitude, radius: 500)
+        manager.stopUpdatingLocation()
+    }
+    
+    //MARK - LOCATION AUTHORISING METHODS
+    
+    func turnOnLocationMonitoring(){
+        locationMgr.startUpdatingLocation()
+        coffeeMap.showsUserLocation = true
+        
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+        setupLocationMonitoring()
+    }
+    
+    func setupLocationMonitoring(){
+        locationMgr.delegate = self
+        locationMgr.desiredAccuracy = kCLLocationAccuracyBest
+        if CLLocationManager.locationServicesEnabled() {
+            switch CLLocationManager.authorizationStatus() {
+            case .authorizedAlways, .authorizedWhenInUse:
+                turnOnLocationMonitoring()
+            case .denied, .restricted:
+                print("hey turn us back on in settings")
+            case .notDetermined:
+                if locationMgr.responds(to: #selector(CLLocationManager.requestAlwaysAuthorization)){
+                    locationMgr.requestAlwaysAuthorization()
+                }
+                
+            }
+        } else {
+            print("hey turn on location on settings please")
+        }
+    }
+}
+
 
 
 

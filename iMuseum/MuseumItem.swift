@@ -13,13 +13,17 @@ class MuseumItem: NSObject {
     var street      :String!
     var city        :String!
     var state       :String!
+    var locationLat     :Double!
+    var locationLon     :Double!
     
-    init(museumName: String, street: String, city: String, state: String) {
+    init(museumName: String, street: String, city: String, state: String, lat: Double, lon: Double) {
         
         self.museumName = museumName
         self.street = street
         self.city = city
         self.state = state
+        self.locationLat = lat
+        self.locationLon = lon
     }
 
 }
