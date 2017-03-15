@@ -80,13 +80,16 @@ class ViewController: UIViewController  /*, UITableViewDelegate, UITableViewData
             //for mItem in museumArray {
            // print("Museum Array: \(mItem.locationLat!)")
             //}
+            annotateMapLocations()
             print(museumArray.count)
+            
         }
        catch {
             print("JSON Parsing Error")
         }
         DispatchQueue.main.async {
            // self.museumTableView.reloadData()
+            
             UIApplication.shared.isNetworkActivityIndicatorVisible = false
         }
         
@@ -130,7 +133,6 @@ class ViewController: UIViewController  /*, UITableViewDelegate, UITableViewData
         museumArray.append(contentsOf: [museum3, museum2])
     }
     
-    
    // @IBAction func getFilePressed(button: UIButton){
     func getFilePressed() {
         guard let reach = reachability else {
@@ -145,8 +147,6 @@ class ViewController: UIViewController  /*, UITableViewDelegate, UITableViewData
         } else {
             print("Host Not reachable. Turn on the internet")
         }
-        
-        
     }
     
     func annotateMapLocations(){
@@ -160,9 +160,9 @@ class ViewController: UIViewController  /*, UITableViewDelegate, UITableViewData
         }
         coffeeMap.removeAnnotations(pinsToRemove)
         
-        for mItem in museumArray {
-            print("Museum Array: \(mItem.locationLat!)")
-        }
+       // for mItem in museumArray {
+          //  print("Museum Array: \(mItem.locationLat!)")
+       // }
         
         print("in annotate pins func \(museumArray.count)")
         
@@ -171,15 +171,11 @@ class ViewController: UIViewController  /*, UITableViewDelegate, UITableViewData
             pa1.coordinate = CLLocationCoordinate2D(latitude: museumLoc.locationLat!, longitude: museumLoc.locationLon!)
             pa1.title = museumLoc.museumName
             pa1.subtitle = museumLoc.city
-            
-            print("in annotate pins \(museumLoc.locationLat)")
+            print("in annotate pins loop \(museumLoc.locationLat!)")
             coffeeMap.addAnnotations([pa1])
         }
         // zoomToPins()
     }
-    
-    //MARK :- Table View Methods
-   
     
     //MARK :- REACHABILITY METHODS
     
@@ -227,7 +223,7 @@ class ViewController: UIViewController  /*, UITableViewDelegate, UITableViewData
         startReachability()
       //  fillArray()
         getFilePressed()
-        annotateMapLocations()
+        
         
        setupLocationMonitoring()
     }
